@@ -1,0 +1,288 @@
+/*
+ * ============================================================
+ * index.css - Estilos globales con TailwindCSS
+ * ============================================================
+ * 
+ * Estructura:
+ * 1. Directivas de Tailwind (base, components, utilities)
+ * 2. Estilos globales personalizados
+ * 3. Estilos para el renderizador de markdown
+ * 4. Estilos para syntax highlighting de código
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+ * Estilos base globales
+ * ============================================================ */
+@layer base {
+  /* Fondo y texto base para dark mode */
+  html {
+    @apply bg-white text-slate-900;
+  }
+  html.dark {
+    @apply bg-dark-950 text-slate-200;
+  }
+
+  /* Scrollbar personalizada */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+  .dark ::-webkit-scrollbar-track {
+    background: #1e293b;
+  }
+  .dark ::-webkit-scrollbar-thumb {
+    background: #475569;
+  }
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+  }
+
+  /* Selección de texto */
+  ::selection {
+    background-color: rgba(59, 130, 246, 0.25);
+    color: #0f172a;
+  }
+  .dark ::selection {
+    background-color: rgba(59, 130, 246, 0.35);
+    color: #f8fafc;
+  }
+}
+
+/* ============================================================
+ * Componentes reutilizables con @apply
+ * ============================================================ */
+@layer components {
+  /* Botón primario */
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium 
+           py-2.5 px-6 rounded-lg transition-colors duration-200
+           focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
+           focus:ring-offset-white disabled:opacity-50 disabled:cursor-not-allowed
+           dark:focus:ring-offset-dark-900;
+  }
+
+  /* Botón secundario */
+  .btn-secondary {
+    @apply bg-white hover:bg-slate-50 text-slate-700 font-medium
+           py-2.5 px-6 rounded-lg border border-slate-300 transition-colors duration-200
+           focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
+           focus:ring-offset-white
+           dark:bg-dark-800 dark:hover:bg-dark-700 dark:text-slate-200
+           dark:border-dark-600 dark:focus:ring-offset-dark-900;
+  }
+
+  /* Input de formulario */
+  .input-field {
+    @apply w-full bg-white border border-slate-300 rounded-lg px-4 py-2.5
+           text-slate-900 placeholder-slate-400
+           focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500
+           transition-colors duration-200
+           dark:bg-dark-800 dark:border-dark-600 dark:text-slate-100
+           dark:placeholder-slate-500;
+  }
+
+  /* Tarjeta base */
+  .card {
+    @apply bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm
+           hover:border-slate-300 hover:shadow-md transition-all duration-200
+           dark:bg-dark-900 dark:border-dark-700 dark:hover:border-dark-600;
+  }
+}
+
+/* ============================================================
+ * Estilos del visor de contenido Markdown
+ * ============================================================ */
+.markdown-content {
+  @apply text-slate-700 leading-relaxed dark:text-slate-300;
+}
+
+.markdown-content h1 {
+  @apply text-3xl font-bold text-slate-900 mt-8 mb-4 pb-2 border-b border-slate-200
+         dark:text-slate-100 dark:border-dark-700;
+}
+
+.markdown-content h2 {
+  @apply text-2xl font-semibold text-slate-900 mt-6 mb-3 dark:text-slate-100;
+}
+
+.markdown-content h3 {
+  @apply text-xl font-semibold text-slate-800 mt-5 mb-2 dark:text-slate-200;
+}
+
+.markdown-content h4 {
+  @apply text-lg font-medium text-slate-800 mt-4 mb-2 dark:text-slate-200;
+}
+
+.markdown-content p {
+  @apply mb-4 text-slate-700 dark:text-slate-300;
+}
+
+.markdown-content a {
+  @apply text-primary-600 hover:text-primary-700 underline underline-offset-2
+         dark:text-primary-400 dark:hover:text-primary-300;
+}
+
+.markdown-content ul {
+  @apply list-disc list-inside mb-4 space-y-1 text-slate-700 dark:text-slate-300;
+}
+
+.markdown-content ol {
+  @apply list-decimal list-inside mb-4 space-y-1 text-slate-700 dark:text-slate-300;
+}
+
+.markdown-content li {
+  @apply ml-4;
+}
+
+.markdown-content blockquote {
+  @apply border-l-4 border-primary-400 pl-4 py-1 my-4 bg-primary-50/60 
+         rounded-r-lg italic text-slate-600
+         dark:bg-primary-900/20 dark:text-slate-400 dark:border-primary-500;
+}
+
+.markdown-content table {
+  @apply w-full border-collapse mb-4;
+}
+
+.markdown-content th {
+  @apply bg-slate-100 text-slate-800 font-semibold px-4 py-2 text-left
+         border border-slate-300
+         dark:bg-dark-800 dark:text-slate-200 dark:border-dark-600;
+}
+
+.markdown-content td {
+  @apply px-4 py-2 border border-slate-200 text-slate-700
+         dark:border-dark-700 dark:text-slate-300;
+}
+
+.markdown-content tr:nth-child(even) {
+  @apply bg-slate-50 dark:bg-dark-800/50;
+}
+
+/* Bloques de código inline */
+.markdown-content code:not(pre code) {
+  @apply bg-slate-100 text-primary-700 px-1.5 py-0.5 rounded text-sm font-mono border border-slate-200
+         dark:bg-dark-800 dark:text-primary-400 dark:border-dark-600;
+}
+
+/* Bloques de código */
+.markdown-content pre {
+  @apply bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4 
+         overflow-x-auto text-sm font-mono
+         dark:bg-dark-900 dark:border-dark-700;
+}
+
+.markdown-content pre code {
+  @apply bg-transparent text-slate-800 p-0 dark:text-slate-200;
+}
+
+.markdown-content img {
+  @apply max-w-full h-auto rounded-lg my-4 border border-slate-200 dark:border-dark-700;
+}
+
+.markdown-content hr {
+  @apply my-8 border-slate-200 dark:border-dark-700;
+}
+
+/* ============================================================
+ * GitHub Alerts (> [!NOTE], > [!WARNING], etc.)
+ * Los colores de borde y fondo se aplican vía inline style en
+ * MarkdownRenderer.jsx, aquí solo los elementos estructurales.
+ * ============================================================ */
+.markdown-content figure {
+  @apply my-4;
+}
+
+.markdown-content figcaption {
+  @apply text-center text-xs text-slate-400 mt-2 italic;
+}
+
+/* Embed de YouTube responsivo */
+.yt-embed-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* ============================================================
+ * KaTeX - Ecuaciones LaTeX en tema oscuro
+ * El CSS de KaTeX viene de 'katex/dist/katex.min.css' importado
+ * en MarkdownRenderer.jsx. Aquí solo ajustamos colores para
+ * que encajen con el tema oscuro de la plataforma.
+ * ============================================================ */
+
+/* Ecuaciones en bloque: $$...$$ */
+.markdown-content .math-display,
+.markdown-content .katex-display {
+  @apply my-6 py-4 px-6 bg-slate-50 rounded-xl border border-slate-200
+         overflow-x-auto text-center
+         dark:bg-dark-900 dark:border-dark-700;
+}
+
+/* Color oscuro para KaTeX sobre fondo claro */
+.markdown-content .katex {
+  color: #1e293b;  /* slate-800 */
+  font-size: 1.05em;
+}
+.dark .markdown-content .katex {
+  color: #e2e8f0;  /* slate-200 */
+}
+
+.markdown-content .katex-display .katex {
+  font-size: 1.15em;
+}
+
+/* Ecuaciones inline: $...$ */
+.markdown-content .math-inline,
+.markdown-content .katex:not(.katex-display .katex) {
+  color: #1d4ed8;  /* primary-700 — azul sobre blanco */
+  padding: 0 2px;
+}
+.dark .markdown-content .math-inline,
+.dark .markdown-content .katex:not(.katex-display .katex) {
+  color: #93c5fd;  /* primary-300 — azul claro sobre oscuro */
+}
+
+/* ============================================================
+ * Animaciones
+ * ============================================================ */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-slide-in {
+  animation: slide-in-right 0.3s ease-out forwards;
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(100%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s ease-out forwards;
+}
+

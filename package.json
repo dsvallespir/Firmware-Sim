@@ -1,0 +1,53 @@
+{
+  "name": "course-platform-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Frontend de la plataforma de cursos - React + Vite + TailwindCSS",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "android:sync": "npm run build && npx cap sync android",
+    "android:open": "npx cap open android",
+    "android:studio": "npm run android:sync && npx cap open android",
+    "android:run": "npm run android:sync && npx cap run android",
+    "android:dev": "npx cap run android --livereload --external --host 192.168.1.43"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.3.0",
+    "@capacitor/cli": "^8.3.0",
+    "@capacitor/core": "^8.3.0",
+    "@monaco-editor/react": "^4.7.0",
+    "avr8js": "file:./wokwi-libs/avr8js",
+    "axios": "^1.7.7",
+    "clsx": "^2.1.1",
+    "i18next": "^25.10.10",
+    "i18next-browser-languagedetector": "^8.2.1",
+    "katex": "^0.16.38",
+    "lucide-react": "^0.447.0",
+    "monaco-editor": "^0.55.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^16.6.6",
+    "react-markdown": "^9.0.1",
+    "react-router-dom": "^6.26.2",
+    "react-syntax-highlighter": "^15.5.0",
+    "rehype-highlight": "^7.0.0",
+    "rehype-katex": "^7.0.1",
+    "rehype-raw": "^7.0.0",
+    "remark-gfm": "^4.0.0",
+    "remark-math": "^6.0.0",
+    "@wokwi/elements": "file:./wokwi-libs/wokwi-elements"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.10",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.13",
+    "vite": "^5.4.8"
+  }
+}

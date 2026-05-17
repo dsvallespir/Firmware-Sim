@@ -1,0 +1,339 @@
+{
+  "nav": {
+    "courses": "Courses",
+    "dashboard": "My Dashboard",
+    "admin": "Admin",
+    "login": "Log In",
+    "register": "Sign Up",
+    "logout": "Log Out",
+    "adminPanel": "Admin Panel"
+  },
+  "header": {
+    "logoAlt": "Firmware Academy"
+  },
+  "footer": {
+    "description": "Professional software and firmware development courses. Learn Blockchain, TCP/IP, Computer Vision, ESP32, STM32, Raspberry Pi and FPGA with real projects.",
+    "sections": {
+      "courses": "Courses",
+      "platform": "Platform",
+      "legal": "Legal"
+    },
+    "links": {
+      "allCourses": "All courses",
+      "createAccount": "Create account",
+      "contact": "Contact",
+      "terms": "Terms & Conditions",
+      "privacy": "Privacy Policy",
+      "cookies": "Cookie Policy"
+    },
+    "copyright": "© {{year}} Firmware Academy. All rights reserved.",
+    "legalInfo": "Firmware Academy S.A.S. · TAX ID: 30-12345678-9 · Buenos Aires, Argentina"
+  },
+  "landing": {
+    "badge": "7 firmware & systems courses",
+    "hero": {
+      "title1": "Learn",
+      "title2": "Firmware & Systems",
+      "title3": "with Real Code",
+      "subtitle": "Professional courses on Blockchain, TCP/IP, Computer Vision, ESP32, STM32, Raspberry Pi and FPGA. Every line of code is explained.",
+      "ctaCourses": "View Courses",
+      "ctaRegister": "Create Free Account"
+    },
+    "stats": {
+      "courses": "Courses",
+      "modules": "Modules",
+      "hours": "Hours"
+    },
+    "whyTitle": "Why Firmware Academy?",
+    "whySubtitle": "We are not just another tutorial. Every course is a living tutorial with compilable code, didactic comments and real progression.",
+    "coursesTitle": "Our Courses",
+    "coursesSubtitle": "From Linux systems programming to digital design with FPGA. Each course is a complete learning path.",
+    "viewCourse": "View course",
+    "viewAllCourses": "View All Courses",
+    "ctaTitle": "Ready to code at the metal?",
+    "ctaSubtitle": "Join Firmware Academy and master systems development, firmware and embedded applications with real projects.",
+    "ctaButton": "Start Now"
+  },
+  "features": {
+    "realCode": {
+      "title": "Real Code, Not Slides",
+      "desc": "Every lesson has executable code with comments explaining each decision. No unnecessary abstractions."
+    },
+    "fromZero": {
+      "title": "From Zero to Production",
+      "desc": "Incremental progression: first the minimal concept, then variants, and finally the robust version."
+    },
+    "understand": {
+      "title": "Understand, Not Copy",
+      "desc": "We explain the why behind each solution. Trade-offs, alternatives, common mistakes and how to debug them."
+    },
+    "systems": {
+      "title": "C/C++ and Systems",
+      "desc": "Focused on systems programming: syscalls, POSIX, kernel, firmware. What tutorials don't teach you."
+    }
+  },
+  "login": {
+    "title": "Log In",
+    "subtitle": "Access your account to continue learning",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Log In",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up",
+    "errors": {
+      "locked": "Account temporarily locked due to multiple failed attempts.",
+      "suspended": "Your account has been suspended. Contact support.",
+      "rateLimit": "Too many attempts. Please wait a moment before retrying.",
+      "generic": "Login failed. Please check your credentials."
+    }
+  },
+  "register": {
+    "title": "Create Account",
+    "subtitle": "Sign up to access the courses",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "submit": "Create Account",
+    "hasAccount": "Already have an account?",
+    "signIn": "Log In",
+    "terms": "I accept the",
+    "termsLink": "Terms & Conditions",
+    "privacy": "I accept the",
+    "privacyLink": "Privacy Policy",
+    "passwordChecks": {
+      "length": "At least 10 characters",
+      "notEmail": "Must not match your email",
+      "notUsername": "Must not match your username"
+    },
+    "errors": {
+      "passwordMismatch": "Passwords do not match",
+      "passwordLength": "Password must be at least 10 characters",
+      "legalRequired": "You must accept the Terms & Conditions and Privacy Policy to register.",
+      "generic": "Error creating account. Please try again."
+    },
+    "success": {
+      "title": "Check your email!",
+      "body": "We sent a verification link to {{email}}. Click the link to activate your account.",
+      "hint1": "The link expires in 24 hours",
+      "hint2": "Check your spam folder if you don't find it",
+      "goLogin": "Go to Log In"
+    }
+  },
+  "dashboard": {
+    "greeting": "Hi, {{username}} 👋",
+    "subtitle": "Your learning dashboard",
+    "stats": {
+      "enrolledCourses": "Enrolled courses",
+      "completedLessons": "Completed lessons",
+      "memberSince": "Member since"
+    },
+    "myCourses": "My Courses",
+    "noCourses": "You haven't enrolled in any course yet.",
+    "exploreCourses": "Explore Courses",
+    "continue": "Continue",
+    "lessons": "lessons"
+  },
+  "catalog": {
+    "title": "Course Catalog",
+    "subtitle": "Explore our software and firmware development courses",
+    "searchPlaceholder": "Search courses...",
+    "allDifficulties": "All difficulties",
+    "allLanguages": "All languages",
+    "difficulty": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "noResults": "No courses found with those filters.",
+    "error": "Error loading courses. Please try again.",
+    "retry": "Retry"
+  },
+  "courseCard": {
+    "free": "Free",
+    "modules": "modules",
+    "lessons": "lessons"
+  },
+  "courseDetail": {
+    "notFound": "Course not found",
+    "viewCatalog": "View catalog",
+    "difficulty": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "modules": "modules",
+    "lessons": "lessons",
+    "hours": "hours",
+    "yourProgress": "Your progress",
+    "free": "Free",
+    "lifelongAccess": "Lifetime access",
+    "continuelearning": "Continue Learning",
+    "buyNow": "Buy Course",
+    "enrollFree": "Enroll for Free",
+    "features": {
+      "progressiveModules": "{{count}} progressive modules",
+      "sourceCode": "Full source code",
+      "lifelongAccess": "Lifetime access",
+      "updates": "Updates included"
+    },
+    "contentTitle": "Course Content",
+    "lessonsCount": "{{count}} lessons",
+    "preview": "Preview",
+    "hardware": {
+      "title": "Required Hardware",
+      "buy": "Buy →"
+    }
+  },
+  "lessonViewer": {
+    "previous": "Previous",
+    "next": "Next",
+    "markComplete": "Mark complete",
+    "completed": "Completed",
+    "lessons": "lessons",
+    "readMin": "min",
+    "viewFiles": "View files",
+    "hideFiles": "Hide files",
+    "backToLesson": "Back to lesson",
+    "noFiles": "No code files",
+    "selectFile": "Select a file from the tree",
+    "lines": "lines",
+    "reduce": "Reduce",
+    "expand": "Expand",
+    "copy": "Copy code",
+    "download": "Download file",
+    "close": "Close"
+  },
+  "pendingVerification": {
+    "title": "Verify Your Email",
+    "body": "We sent a verification link to {{email}}",
+    "note": "You must verify your email to access courses and platform content.",
+    "instructions": {
+      "check": "Check your inbox (and spam folder)",
+      "click": "Click the link in the email to activate your account",
+      "expires": "The link expires in 24 hours"
+    },
+    "resend": "Resend Verification Email",
+    "resendIn": "Resend in {{count}}s",
+    "logout": "Log Out"
+  },
+  "verifyEmail": {
+    "verifying": {
+      "title": "Verifying your account...",
+      "body": "We are confirming your email address."
+    },
+    "success": {
+      "title": "Account Verified!",
+      "button": "Log In"
+    },
+    "error": {
+      "title": "Verification Failed",
+      "noToken": "No verification token found in the link.",
+      "expired": "Could not verify your account. The link may have expired.",
+      "hint": "If your link expired, you can request a new one from the",
+      "hintLink": "pending verification page",
+      "login": "Log In"
+    }
+  },
+  "payment": {
+    "verifying": "Verifying your payment...",
+    "success": {
+      "title": "Payment Successful!",
+      "body": "Your enrollment is complete. You can now access all course content.",
+      "goToCourse": "Go to Course",
+      "goToDashboard": "Go to Dashboard",
+      "moreCourses": "Browse more courses"
+    },
+    "pending": {
+      "title": "Payment Processing",
+      "body": "Your payment is being processed by Mercado Pago. Once confirmed, you will automatically get course access.",
+      "pendingTitle": "Payment Pending",
+      "pendingBody": "Your payment is being processed by Mercado Pago.",
+      "cashNote": "If you chose cash payment, find the voucher in your email and pay at any authorized branch. Access will be granted automatically once confirmed.",
+      "checking": "Checking payment status...",
+      "emailNote": "Mercado Pago will email you when the payment is confirmed. Course access will be activated automatically.",
+      "credited": {
+        "title": "Payment Confirmed!",
+        "body": "Your payment was confirmed. You can now access the course content."
+      }
+    },
+    "failure": {
+      "title": "Payment Rejected",
+      "defaultReason": "The payment could not be processed.",
+      "retry": "You can try again with a different payment method.",
+      "retryButton": "Retry purchase",
+      "backHome": "Back to home"
+    },
+    "failed": {
+      "title": "Payment Not Approved",
+      "body": "The payment could not be processed. You can try again.",
+      "retry": "Retry purchase",
+      "backHome": "Back to home"
+    },
+    "noInfo": {
+      "title": "No Payment Information",
+      "body": "No payment information found. If you made a payment, check your dashboard.",
+      "verificationPending": "Verification Pending",
+      "verificationBody": "Confirmation may take a few seconds. Check your dashboard for the updated status."
+    },
+    "goToDashboard": "Go to Dashboard",
+    "moreCourses": "Browse more courses",
+    "viewCourses": "View courses"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "The page you are looking for does not exist or has been moved.",
+    "backHome": "Back to home"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "free": "Free"
+  },
+  "tour": {
+    "step1": {
+      "title": "Course Index",
+      "body": "Here you can find all modules and lessons. Click any of them to navigate directly."
+    },
+    "step2": {
+      "title": "Your Progress",
+      "body": "This bar shows how much of the course you have completed. It updates every time you mark a lesson as done."
+    },
+    "step3": {
+      "title": "Mark as Completed",
+      "body": "Once you finish a lesson, press this button to record your progress in the course."
+    },
+    "step4": {
+      "title": "Code Explorer",
+      "body": "Here you can view and explore all the source files for the current module."
+    },
+    "step5": {
+      "title": "Download Code",
+      "body": "Download the source file for this lesson to practice on your own machine."
+    },
+    "step6": {
+      "title": "Navigate Lessons",
+      "body": "Use these controls to go to the previous or next lesson without returning to the index."
+    },
+    "next": "Next",
+    "prev": "Previous",
+    "skip": "Skip tour",
+    "finish": "Got it!",
+    "counter": "{{current}} / {{total}}"
+  },
+  "translation": {
+    "notAvailable": "This content is not yet available in English",
+    "showingOriginal": "Showing the original Spanish version. Translation is in progress."
+  },
+  "libraries": {
+    "title": "Libraries",
+    "search": "Search library...",
+    "none": "No external dependencies",
+    "selected": "{{count}} selected",
+    "selectedPlural": "{{count}} selected",
+    "clear": "Clear",
+    "loading": "Loading...",
+    "noResults": "No results",
+    "installedHint": "Already installed"
+  }
+}

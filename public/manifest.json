@@ -1,0 +1,44 @@
+{
+  "name": "Firmware & Software Academy",
+  "short_name": "Firmware Academy",
+  "description": "Plataforma de cursos de desarrollo de software y firmware embebido",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "lang": "es",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "/images/page/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/page/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Mis cursos",
+      "short_name": "Cursos",
+      "description": "Ver mis cursos activos",
+      "url": "/dashboard",
+      "icons": [{ "src": "/images/page/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Catálogo",
+      "short_name": "Catálogo",
+      "description": "Explorar todos los cursos disponibles",
+      "url": "/courses",
+      "icons": [{ "src": "/images/page/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
