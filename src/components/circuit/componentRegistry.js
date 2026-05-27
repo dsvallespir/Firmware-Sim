@@ -51,6 +51,14 @@ export const PALETTE_COMPONENTS = [
     color: '#3b82f6',
     defaultAttrs: {},
   },
+  {
+    paletteId: 'esp32s3',
+    type: 'wokwi-esp32-devkit-v1',
+    label: 'ESP32',
+    category: 'Microcontroladores',
+    color: '#3b82f6',
+    defaultAttrs: {},
+  },
 
   // ── Salidas ──────────────────────────────────────────────────────────────
   {

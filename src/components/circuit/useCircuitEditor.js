@@ -240,7 +240,7 @@ export default function useCircuitEditor(initial = DEFAULT_DIAGRAM) {
       connected.add(c[0].split(':')[0]);
       connected.add(c[1].split(':')[0]);
     }
-    const KEEP_TYPES = ['wokwi-arduino-uno', 'wokwi-arduino-nano', 'wokwi-arduino-mega'];
+    const KEEP_TYPES = ['wokwi-arduino-uno', 'wokwi-arduino-nano', 'wokwi-arduino-mega', 'wokwi-esp32-devkit-v1'];
     const orphans = d.parts.filter(
       (p) => !connected.has(p.id) && !KEEP_TYPES.some((t) => p.type === t),
     );

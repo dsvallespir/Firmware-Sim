@@ -40,7 +40,7 @@ import SerialMonitor from '../components/SerialMonitor';
 import DiagramEditor from '../components/circuit/DiagramEditor';
 import useCircuitEditor, { DEFAULT_DIAGRAM } from '../components/circuit/useCircuitEditor';
 import LibraryManager from '../components/LibraryManager';
-
+import { useESP32Flasher }  from "../hooks/useESP32Flasher";
 // ---------------------------------------------------------------------------
 // Default sketch
 // ---------------------------------------------------------------------------
@@ -68,6 +68,8 @@ const BOARDS = [
   { fqbn: 'arduino:avr:mega',      name: 'Arduino Mega 2560' },
   { fqbn: 'arduino:avr:leonardo',  name: 'Arduino Leonardo' },
   { fqbn: 'arduino:avr:micro',     name: 'Arduino Micro' },
+  { fqbn: 'esp32:esp32:esp32',     name: 'ESP32' },
+  
 ];
 
 let _fileSeq = 1;
@@ -88,6 +90,11 @@ function fileLanguage(name) {
 // Component
 // ---------------------------------------------------------------------------
 export default function WorkbenchPage() {
+  // ── ESP32 Connection ───────────────────────────────────────────────────
+  const { device, connectDevice, flashDevice } = useESP32Flasher();
+  const [esp32Connected, setEsp32Connected] = useState(false);
+  const [connectingESP32, setConnectingESP32] = useState(false);
+
   // ── Files ──────────────────────────────────────────────────────────────
   const [files, setFiles] = useState([
     { id: genFileId(), name: 'sketch.ino', content: DEFAULT_SKETCH, modified: false },
@@ -198,6 +205,11 @@ export default function WorkbenchPage() {
     return () => el.removeEventListener('mousedown', onDown);
   }, [bottomPx]);
 
+  // ── Actualizar estado de conexión ESP32 ───────────────────────────────
+  useEffect(() => {
+    setEsp32Connected(!!device);
+  }, [device]);
+
   // ── Fetch boards from backend ───────────────────────────────────────────
   useEffect(() => {
     api.get('/compile/boards')
@@ -241,11 +253,14 @@ export default function WorkbenchPage() {
   [files]);
 
   // ── Compile & run ────────────────────────────────────────────────────────
+// ── Compile & run ────────────────────────────────────────────────────────
   const handleCompile = useCallback(async () => {
     if (compileStatus === 'compiling') return;
     setCompileStatus('compiling');
     setCompileResult(null);
     setActiveTab('terminal');
+    
+    // Detenemos el simulador virtual si estaba corriendo
     if (sim.isRunning) sim.stop();
 
     try {
@@ -257,12 +272,65 @@ export default function WorkbenchPage() {
 
       setCompileResult(data);
 
-      if (data.success && data.hex_content) {
+      if (data.success) {
         setCompileStatus('success');
-        const loaded = sim.loadHex(data.hex_content);
-        if (loaded) {
-          sim.start();
-          setTimeout(() => setActiveTab('serial'), 1500);
+
+        // 🟢 CASO 1: Arduino AVR (Simulador Virtual)
+        if (data.hex_content) {
+          const loaded = sim.loadHex(data.hex_content);
+          if (loaded) {
+            sim.start();
+            setTimeout(() => setActiveTab('serial'), 1500);
+          }
+        } 
+        // 🔵 CASO 2: ESP32 (Hardware Real vía Web Serial)
+        else if (data.bin_content) {
+          try {
+
+            if (!device) {
+              // ⚠️ Solución alternativa "Fast": Pedir el puerto ACÁ levantando un modal,
+              // pero lo ideal es que ya esté conectado.
+              setCompileStatus('error');
+              setCompileResult({ success: false, error: "Por favor, conectá tu ESP32 primero usando el botón de conexión." });
+              return;
+            }
+            // 1. Decodificar el binario desde Base64 a ArrayBuffer
+            // 🚀 SOLUCIÓN: Decodificación moderna y segura para binarios de firmware
+            const cleanBase64 = data.bin_content.replace(/\s/g, ''); 
+                
+            // Convertimos el string a una simulación de archivo en memoria
+            const dataUrl = `data:application/octet-stream;base64,${cleanBase64}`;
+            const blobResponse = await fetch(dataUrl);
+            const blob = await blobResponse.blob();
+            
+            // Obtenemos el ArrayBuffer puro e inmaculado
+            const arrayBuffer = await blob.arrayBuffer();
+            
+            console.log("¡Decodificación exitosa! Tamaño real del binario:", arrayBuffer.byteLength, "bytes");
+
+            if (arrayBuffer.byteLength === 0) {
+                throw new Error("El binario decodificado tiene tamaño 0.");
+            }
+
+            // Cuando ya tenés el arrayBuffer decodificado del Blob:
+            console.log("=== CONTROL EN WORKBENCH ===");
+            console.log("¿Es un ArrayBuffer válido?:", arrayBuffer instanceof ArrayBuffer);
+            console.log("Tamaño exacto en bytes en Workbench:", arrayBuffer?.byteLength);
+
+            // Le pasamos el buffer real a tu hook useESP32Flasher configurado en 0x10000
+            await flashDevice(arrayBuffer, device);
+
+            // 5. Pasar a la pestaña serial para ver los logs reales
+            setTimeout(() => setActiveTab('serial'), 1500);
+
+          } catch (flashError) {
+            console.error("Error al flashear el dispositivo:", flashError);
+            setCompileStatus('error');
+            setCompileResult((prev) => ({
+              ...prev,
+              error: "Fallo al transferir el firmware a la placa física."
+            }));
+          }
         }
       } else {
         setCompileStatus('error');
@@ -275,10 +343,28 @@ export default function WorkbenchPage() {
         error: typeof detail === 'object' ? (detail.message || JSON.stringify(detail)) : detail,
       });
     }
-  }, [files, selectedBoard, compileStatus, sim]);
+  }, [files, selectedBoard, selectedLibs, compileStatus, sim, device, flashDevice]);
 
   const handleStop  = useCallback(() => sim.stop(),   [sim]);
   const handleReset = useCallback(() => { sim.reset(); sim.start(); }, [sim]);
+
+  // ── Connect ESP32 Device ─────────────────────────────────────────────────
+  const handleConnectESP32 = useCallback(async () => {
+    setConnectingESP32(true);
+    try {
+      const selectedPort = await connectDevice();
+      if (selectedPort) {
+        console.log("ESP32 conectado exitosamente");
+      } else {
+        alert("No se pudo conectar al dispositivo. Asegúrate de que el ESP32 está enchufado.");
+      }
+    } catch (error) {
+      console.error("Error al conectar ESP32:", error);
+      alert("Error al conectar ESP32: " + error.message);
+    } finally {
+      setConnectingESP32(false);
+    }
+  }, [connectDevice]);
 
   // ── Diagram import / export ──────────────────────────────────────────────
   const handleExportDiagram = useCallback(() => {
@@ -388,19 +474,61 @@ export default function WorkbenchPage() {
           <span className="text-sm font-bold text-slate-200 hidden sm:inline">Arduino Workbench</span>
         </div>
 
-        {/* Compile & Run */}
-        <button
-          onClick={handleCompile}
-          disabled={compileStatus === 'compiling'}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold
-                     bg-emerald-600 text-white hover:bg-emerald-500
-                     disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-        >
-          {compileStatus === 'compiling'
-            ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Compilando...</>
-            : <><Play className="w-3.5 h-3.5" /> Compilar y Simular</>
-          }
-        </button>
+        {/* Compile & Run / Connect ESP32 */}
+        {selectedBoard === 'esp32:esp32:esp32' || selectedBoard === 'esp32:esp32:esp32:FlashSize=4M,FlashMode=dio' ? (
+          <>
+            {!esp32Connected ? (
+              <button
+                onClick={handleConnectESP32}
+                disabled={connectingESP32}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold
+                           bg-blue-600 text-white hover:bg-blue-500
+                           disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {connectingESP32
+                  ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Conectando...</>
+                  : <><Radio className="w-3.5 h-3.5" /> Conectar ESP32 Real</>
+                }
+              </button>
+            ) : (
+              <button
+                onClick={handleCompile}
+                disabled={compileStatus === 'compiling'}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold
+                           bg-emerald-600 text-white hover:bg-emerald-500
+                           disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {compileStatus === 'compiling'
+                  ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Compilando...</>
+                  : <><Upload className="w-3.5 h-3.5" /> Compilar y Subir</>
+                }
+              </button>
+            )}
+            {esp32Connected && (
+              <button
+                onClick={() => { setEsp32Connected(false); }}
+                className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium
+                           bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors"
+                title="Desconectar ESP32"
+              >
+                <span className="text-blue-400">✓ Conectado</span>
+              </button>
+            )}
+          </>
+        ) : (
+          <button
+            onClick={handleCompile}
+            disabled={compileStatus === 'compiling'}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold
+                       bg-emerald-600 text-white hover:bg-emerald-500
+                       disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            {compileStatus === 'compiling'
+              ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Compilando...</>
+              : <><Play className="w-3.5 h-3.5" /> Compilar y Simular</>
+            }
+          </button>
+        )}
 
         {sim.isRunning && (
           <button
