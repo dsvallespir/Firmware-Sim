@@ -25,7 +25,7 @@ export default defineConfig(({mode}) => {
       // se reenvían automáticamente al backend en :8001
       proxy: {
         '/api': {
-          target: env.VITE_API_URL,
+          target: env.VITE_API_URL + '/api',
           changeOrigin: true,
         },
       },
