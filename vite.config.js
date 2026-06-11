@@ -20,7 +20,7 @@ export default defineConfig({
     // se reenvían automáticamente al backend en :8001
     proxy: {
       '/api': {
-        target: env.VITE_API_URL,
+        target: import.meta.env.VITE_API_URL,
         changeOrigin: true,
       },
     },
