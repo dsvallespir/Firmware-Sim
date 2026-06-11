@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
@@ -20,7 +20,7 @@ export default defineConfig({
     // se reenvían automáticamente al backend en :8001
     proxy: {
       '/api': {
-        target: 'http://localhost:8001',
+        target: env.VITE_API_URL,
         changeOrigin: true,
       },
     },
