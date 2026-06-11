@@ -19,7 +19,7 @@ export default defineConfig(({mode}) => {
     },
     server: {
       host: true,   // escucha en 0.0.0.0 → accesible por red local
-      port: 5274,
+      port: env.PORT || 5274,
       // Proxy para el backend durante desarrollo
       // Esto evita problemas de CORS: las peticiones a /api
       // se reenvían automáticamente al backend en :8001
